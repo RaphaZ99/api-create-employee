@@ -2,8 +2,9 @@
 
 namespace CRUDAPI.Models
 {
-    public class Sector : BaseEntity
-    { 
+    public class Sector 
+    {
+        public int Id { get; set; }
         public string? Name { get; set; }
     }
 }

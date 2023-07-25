@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRUDAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230724001839_create-database")]
+    [Migration("20230725015912_create-database")]
     partial class createdatabase
     {
         /// <inheritdoc />
@@ -84,7 +84,7 @@ namespace CRUDAPI.Migrations
                     b.Property<long>("PersonId")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Salary")
+                    b.Property<decimal?>("Salary")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -109,8 +109,8 @@ namespace CRUDAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("SectorId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("SectorId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -171,12 +171,11 @@ namespace CRUDAPI.Migrations
 
             modelBuilder.Entity("CRUDAPI.Models.Sector", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

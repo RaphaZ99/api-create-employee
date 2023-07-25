@@ -1,4 +1,5 @@
-﻿using CRUDAPI.Data;
+﻿using CRUDAPI.Common;
+using CRUDAPI.Data;
 using CRUDAPI.Models;
 using CRUDAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,47 +21,20 @@ namespace CRUDAPI.Controllers
         }
          
         [HttpPost]
-        public ActionResult<Person> PostEmployeer([FromBody]Employee employee)
+        public ActionResult<ApiResponse<Employee>> PostEmployeer([FromBody]Employee employee)
         {
             try
             {
-                if (_employeerService.CreateEmployeer(employee))
+                  if (_employeerService.CreateEmployeer(employee))
                 {
-                    return Ok("Successfully registered employee");
+                    return Ok(new ApiResponse<Employee> { Success = true, Data = employee}) ;
                 }
             }catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new ApiResponse<Employee> { Success = false, Data = employee, ErrorMessage = ex.Message});
             }
 
             return Ok();
-        }
-        /*
-        [HttpPut]
-        public async Task<ActionResult> PutPerson(Person person)
-        {
-            _context.Persons.Update(person);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpDelete("{personId}")]
-        public async Task<ActionResult> DeletePerson(Guid personId)
-        {
-            Person person = await _context.Persons.FindAsync(personId);
-
-            if (person != null)
-            {
-                _context.Remove(person);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
-                return NotFound("Pessoa não encontrada nos registros");
-            }
-
-            return Ok();*/
-        
+        } 
     }
 }

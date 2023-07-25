@@ -33,13 +33,13 @@ namespace CRUDAPI.Migrations
                 name: "Sectors",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sectors", x => x.id);
+                    table.PrimaryKey("PK_Sectors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +74,7 @@ namespace CRUDAPI.Migrations
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SectorId = table.Column<long>(type: "bigint", nullable: false)
+                    SectorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,7 +83,7 @@ namespace CRUDAPI.Migrations
                         name: "FK_Jobs_Sectors_SectorId",
                         column: x => x.SectorId,
                         principalTable: "Sectors",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -93,7 +93,7 @@ namespace CRUDAPI.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ContractStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ContractEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PersonId = table.Column<long>(type: "bigint", nullable: false),

@@ -1,4 +1,5 @@
-﻿using CRUDAPI.Data;
+﻿using CRUDAPI.Common;
+using CRUDAPI.Data;
 using CRUDAPI.Models;
 using CRUDAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,29 +14,36 @@ namespace CRUDAPI.Controllers
         private readonly SectorService _sectorService;
         public SectorsController(Context context)
         {
-           _sectorService = new SectorService(context);
+            _sectorService = new SectorService(context);
 
         }
 
         [HttpGet]
-        public ActionResult<List<Sector>> GetSectors()
+        public ActionResult<ApiResponse<Sector>> GetSectors()
         {
 
-            return _sectorService.GetSectors();
-           
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Sector>> PostSector([FromBody] Sector sector)
-        {
             try
             {
-              return _sectorService.CreateSector(sector);
+                return Ok(new ApiResponse<Sector> { Success = true, DataList = _sectorService.GetSectors() });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
-            } 
+                return BadRequest(new ApiResponse<Sector> { Success = false, ErrorMessage = ex.Message });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult<ApiResponse<Sector>> PostSector([FromBody] Sector sector)
+        {
+            try
+            {
+                return Ok(new ApiResponse<Sector> { Success = true, Data = _sectorService.CreateSector(sector) });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponse<Sector> { Success = false, ErrorMessage = ex.Message });
+            }
         }
     }
 }

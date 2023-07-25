@@ -18,7 +18,6 @@ namespace CRUDAPI.Services
 
             if (CPFExists(employee.Person.CPF))
             {
-                // O CPF já existe, você pode lançar uma exceção, retornar uma mensagem de erro, etc.
                 throw new InvalidOperationException("CPF já cadastrado.");
                 
 
@@ -28,11 +27,11 @@ namespace CRUDAPI.Services
                 throw new InvalidOperationException("RG já cadastrado.");
             }
 
-            // Se o CPF não existe, continua com a inserção
             if (employee.Id == 0)
             {
                 _context.Employees.Add(employee);
             }
+             
              
             _context.SaveChanges();
 

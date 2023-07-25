@@ -31,9 +31,14 @@ namespace CRUDAPI.Services
 
         public List<Sector> GetSectors()
         {
+            try
+            {
+                return _context.Sectors.ToList();
 
-            return _context.Sectors.ToList();
-
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            } 
         } 
 
         public bool NameExists(string name)
